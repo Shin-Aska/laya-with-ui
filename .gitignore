@@ -1,0 +1,49 @@
+# Local workspaces and historical snapshots
+/.codegraph
+/.idea/
+/.omo/
+/.legacy/
+/legacy-source-*.zip
+/.vscode/*
+!/.vscode/launch.json
+
+# Python environments and caches
+**/.venv/
+**/__pycache__/
+*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# JavaScript dependencies and generated output
+**/node_modules/
+**/.next/
+**/.vinext/
+**/.wrangler/
+**/.sites-runtime/
+**/dist/
+**/out/
+**/coverage/
+*.tsbuildinfo
+
+# Runtime output and downloaded model weights
+**/.logs/
+*.log
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+
+# Local credentials and deployment state
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+/ui/.openai/hosting.json
+
+# OS files
+.DS_Store
+Thumbs.db
