@@ -1,0 +1,32 @@
+{
+  "state": "The editor is easy to use and I like the layout. Please add an offline mode so I can keep working during internet outages.",
+  "questions": {
+    "primary_topic": {
+      "type": "choice",
+      "instructions": "What is the main topic of this product feedback?",
+      "criteria": {
+        "usability": "Ease of use, navigation or user interface",
+        "performance": "Speed, responsiveness or reliability",
+        "pricing": "Price, subscription or value for money",
+        "features": "Missing or requested product capabilities",
+        "other": "Another topic"
+      }
+    },
+    "satisfaction": {
+      "type": "score",
+      "instructions": "How satisfied is the reviewer with the product?",
+      "criteria": [
+        "Very dissatisfied",
+        "Somewhat dissatisfied",
+        "Mixed or neutral",
+        "Somewhat satisfied",
+        "Very satisfied"
+      ]
+    },
+    "feature_request": {
+      "type": "noul",
+      "instructions": "Does this feedback explicitly ask for a new feature or capability?"
+    }
+  },
+  "checkpoint": "english"
+}

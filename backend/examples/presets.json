@@ -1,0 +1,312 @@
+[
+  {
+    "id": "sky",
+    "name": "Sky color",
+    "eyebrow": "STRUCTURED QUESTION EXAMPLE",
+    "description": "Compare a simple choice question with one that includes structured color descriptions.",
+    "checkpoint": "typed-decisions",
+    "questions": {
+      "sky_color": {
+        "type": "choice",
+        "instructions": "What color is the sky?",
+        "criteria": {
+          "indigo": "",
+          "electric blue": "",
+          "baby blue": "",
+          "gray": "",
+          "lavender": "",
+          "salmon": "",
+          "seafoam green": ""
+        }
+      },
+      "sky_color_with_desc": {
+        "type": "choice",
+        "instructions": {
+          "object": "sky",
+          "question": "what color is `object`?"
+        },
+        "criteria": {
+          "indigo": {
+            "description": "very dark, deep blue, like fountain-pen ink",
+            "hex": "#280868",
+            "rgb": {
+              "red": 40,
+              "green": 8,
+              "blue": 104
+            },
+            "hsl": {
+              "hue": 260,
+              "saturation": "86%",
+              "lightness": "22%"
+            }
+          },
+          "electric blue": {
+            "description": "bright, punchy blue, like a swimming pool",
+            "hex": "#1585E7",
+            "rgb": {
+              "red": 21,
+              "green": 133,
+              "blue": 231
+            },
+            "hsl": {
+              "hue": 208,
+              "saturation": "83%",
+              "lightness": "49%"
+            }
+          },
+          "baby blue": {
+            "description": "a very pale, soft blue, like a robin's egg",
+            "hex": "#C2E4F1",
+            "rgb": {
+              "red": 194,
+              "green": 228,
+              "blue": 241
+            },
+            "hsl": {
+              "hue": 197,
+              "saturation": "63%",
+              "lightness": "85%"
+            }
+          },
+          "gray": {
+            "description": "a pale slate, like a heron's feathers",
+            "hex": "#B1CBD1",
+            "rgb": {
+              "red": 177,
+              "green": 203,
+              "blue": 209
+            },
+            "hsl": {
+              "hue": 191,
+              "saturation": "26%",
+              "lightness": "76%"
+            }
+          },
+          "lavender": {
+            "description": "a dusty blue-purple, like wisteria blossoms",
+            "hex": "#847CBF",
+            "rgb": {
+              "red": 132,
+              "green": 124,
+              "blue": 191
+            },
+            "hsl": {
+              "hue": 247,
+              "saturation": "34%",
+              "lightness": "62%"
+            }
+          },
+          "salmon": {
+            "description": "a warm, almost-orange pink, like coral",
+            "hex": "#FB7A65",
+            "rgb": {
+              "red": 251,
+              "green": 122,
+              "blue": 101
+            },
+            "hsl": {
+              "hue": 8,
+              "saturation": "95%",
+              "lightness": "69%"
+            }
+          },
+          "seafoam green": {
+            "description": "a muted, grayish green, like dried eucalyptus leaves",
+            "hex": "#94BDB5",
+            "rgb": {
+              "red": 148,
+              "green": 189,
+              "blue": 181
+            },
+            "hsl": {
+              "hue": 168,
+              "saturation": "24%",
+              "lightness": "66%"
+            }
+          }
+        }
+      }
+    },
+    "samples": [
+      {
+        "name": "Tornado warning",
+        "format": "json",
+        "state": {
+          "condition": "Tornado's a-comin"
+        }
+      }
+    ]
+  },
+  {
+    "id": "triage",
+    "name": "Support triage",
+    "eyebrow": "CUSTOMER OPERATIONS",
+    "description": "Route a request, assess urgency, and spot refund or cancellation intent.",
+    "checkpoint": "typed-decisions",
+    "questions": {
+      "department": {
+        "type": "choice",
+        "instructions": "Which team should handle this customer request?",
+        "criteria": {
+          "billing": "Payments, invoices, charges or refunds",
+          "technical": "Bugs, broken features, outages or access failures",
+          "sales": "Pricing, plans or a new purchase",
+          "other": "None of these departments"
+        }
+      },
+      "urgency": {
+        "type": "score",
+        "instructions": "How urgently does this customer need help?",
+        "criteria": [
+          "Routine question; no deadline or loss of access",
+          "Time-sensitive inconvenience",
+          "Work is blocked, a service is down, or immediate action is needed"
+        ]
+      },
+      "refund_requested": {
+        "type": "noul",
+        "instructions": "Does the customer explicitly request money back or a refund?"
+      },
+      "cancellation_risk": {
+        "type": "noul",
+        "instructions": "Does the customer explicitly say they may cancel or stop using the service?"
+      }
+    },
+    "samples": [
+      {
+        "name": "Duplicate payment",
+        "format": "text",
+        "state": "I was charged twice for my September subscription. Please refund the duplicate charge today. If this is not fixed, I will cancel our account."
+      },
+      {
+        "name": "Service outage",
+        "format": "json",
+        "state": {
+          "subject": "Our production workspace is unavailable",
+          "body": "Everyone gets a 503 error when signing in. Our customer demo starts in 30 minutes. Please restore access immediately.",
+          "plan": "business"
+        }
+      },
+      {
+        "name": "Pricing question",
+        "format": "text",
+        "state": "Hello, could you share your annual team pricing? We are evaluating options for next quarter. There is no deadline yet."
+      },
+      {
+        "name": "Filipino refund",
+        "format": "text",
+        "checkpoint": "multilingual",
+        "state": "Dalawang beses akong nasingil para sa subscription ko. Pakibalik ang sobrang bayad. Kapag hindi ito naayos ngayong araw, kakanselahin ko ang account ko."
+      }
+    ]
+  },
+  {
+    "id": "documents",
+    "name": "Document routing",
+    "eyebrow": "UNSTRUCTURED ONBOARDING",
+    "description": "Choose from ten document schemas, with an explicit unknown category. This classifies text; it does not extract arbitrary fields.",
+    "checkpoint": "typed-decisions",
+    "questions": {
+      "document_type": {
+        "type": "choice",
+        "instructions": "Which document schema best matches this text? Select other when no schema fits.",
+        "criteria": {
+          "invoice": "Bill requesting payment for goods or services",
+          "purchase_order": "Buyer order authorizing a purchase",
+          "receipt": "Proof that payment has been made",
+          "product_specification": "Product attributes and technical specifications",
+          "safety_data_sheet": "Chemical hazards, handling and first aid",
+          "certificate": "Formal declaration of compliance or certification",
+          "delivery_note": "Shipment contents and delivery record",
+          "contract": "Agreement defining obligations between parties",
+          "support_ticket": "Customer issue requesting assistance",
+          "marketing_copy": "Promotional product or campaign description",
+          "other": "None of the listed document schemas"
+        }
+      },
+      "payment_due": {
+        "type": "noul",
+        "instructions": "Does this document request a payment that is still due?"
+      },
+      "completeness": {
+        "type": "score",
+        "instructions": "How complete is the supplied document excerpt for understanding its purpose?",
+        "criteria": [
+          "Fragment with little identifying context",
+          "Identifiable purpose but some important context missing",
+          "Clear document purpose and relevant supporting details"
+        ]
+      }
+    },
+    "samples": [
+      {
+        "name": "Supplier invoice",
+        "format": "text",
+        "state": "INVOICE INV-1042\nSeller: Coastal Office Supplies\nBill to: Northstar Studio\nIssue date: 22 September 2026\n10 ergonomic office chairs: PHP 80,000\nVAT: PHP 9,600\nTotal due: PHP 89,600\nPlease pay by 22 October 2026. Payment is outstanding."
+      },
+      {
+        "name": "Product specification",
+        "format": "text",
+        "state": "Product: Aurora Desk Lamp\nSKU: ADL-200\nMaterial: recycled aluminium\nInput: USB-C, 5V\nPower: 8 watts\nColor temperature: 2700K–6500K\nDimensions: 420 x 160 x 160 mm\nNet weight: 900 g\nWarranty: 2 years"
+      },
+      {
+        "name": "Unrelated text",
+        "format": "text",
+        "state": "The ferry leaves the harbor before sunrise. We watched birds gather around the pier while the sea turned gold."
+      }
+    ]
+  },
+  {
+    "id": "feedback",
+    "name": "Feedback signals",
+    "eyebrow": "PRODUCT RESEARCH",
+    "description": "Turn a short review into a topic, an ordinal satisfaction score, and a feature-request signal.",
+    "checkpoint": "english",
+    "questions": {
+      "primary_topic": {
+        "type": "choice",
+        "instructions": "What is the main topic of this product feedback?",
+        "criteria": {
+          "usability": "Ease of use, navigation or user interface",
+          "performance": "Speed, responsiveness or reliability",
+          "pricing": "Price, subscription or value for money",
+          "features": "Missing or requested product capabilities",
+          "other": "Another topic"
+        }
+      },
+      "satisfaction": {
+        "type": "score",
+        "instructions": "How satisfied is the reviewer with the product?",
+        "criteria": [
+          "Very dissatisfied",
+          "Somewhat dissatisfied",
+          "Mixed or neutral",
+          "Somewhat satisfied",
+          "Very satisfied"
+        ]
+      },
+      "feature_request": {
+        "type": "noul",
+        "instructions": "Does this feedback explicitly ask for a new feature or capability?"
+      }
+    },
+    "samples": [
+      {
+        "name": "Offline mode",
+        "format": "text",
+        "state": "The editor is easy to use and I like the layout. Please add an offline mode so I can keep working during internet outages."
+      },
+      {
+        "name": "Slow startup",
+        "format": "text",
+        "state": "The new version takes two minutes to launch and regularly freezes. It has become frustrating to use every day."
+      },
+      {
+        "name": "Spanish review",
+        "format": "text",
+        "checkpoint": "multilingual",
+        "state": "La interfaz es muy clara y fácil de usar. Me gustaría poder exportar los resultados a CSV."
+      }
+    ]
+  }
+]

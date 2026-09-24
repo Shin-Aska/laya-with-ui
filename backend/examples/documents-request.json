@@ -1,0 +1,36 @@
+{
+  "state": "INVOICE INV-1042\nSeller: Coastal Office Supplies\nBill to: Northstar Studio\nIssue date: 22 September 2026\n10 ergonomic office chairs: PHP 80,000\nVAT: PHP 9,600\nTotal due: PHP 89,600\nPlease pay by 22 October 2026. Payment is outstanding.",
+  "questions": {
+    "document_type": {
+      "type": "choice",
+      "instructions": "Which document schema best matches this text? Select other when no schema fits.",
+      "criteria": {
+        "invoice": "Bill requesting payment for goods or services",
+        "purchase_order": "Buyer order authorizing a purchase",
+        "receipt": "Proof that payment has been made",
+        "product_specification": "Product attributes and technical specifications",
+        "safety_data_sheet": "Chemical hazards, handling and first aid",
+        "certificate": "Formal declaration of compliance or certification",
+        "delivery_note": "Shipment contents and delivery record",
+        "contract": "Agreement defining obligations between parties",
+        "support_ticket": "Customer issue requesting assistance",
+        "marketing_copy": "Promotional product or campaign description",
+        "other": "None of the listed document schemas"
+      }
+    },
+    "payment_due": {
+      "type": "noul",
+      "instructions": "Does this document request a payment that is still due?"
+    },
+    "completeness": {
+      "type": "score",
+      "instructions": "How complete is the supplied document excerpt for understanding its purpose?",
+      "criteria": [
+        "Fragment with little identifying context",
+        "Identifiable purpose but some important context missing",
+        "Clear document purpose and relevant supporting details"
+      ]
+    }
+  },
+  "checkpoint": "typed-decisions"
+}

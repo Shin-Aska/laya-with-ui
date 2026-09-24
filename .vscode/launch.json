@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Laya: Backend",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/app.py",
+      "cwd": "${workspaceFolder}/backend",
+      "python": "${workspaceFolder}/backend/.venv/Scripts/python.exe",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "justMyCode": true,
+      "args": [
+        "--device",
+        "cuda"
+      ]
+    },
+    {
+      "name": "Laya: UI",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "program": "${workspaceFolder}/ui/scripts/run-framework.mjs",
+      "args": [
+        "dev"
+      ],
+      "cwd": "${workspaceFolder}/ui",
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Laya: Backend + UI",
+      "configurations": [
+        "Laya: Backend",
+        "Laya: UI"
+      ],
+      "stopAll": true
+    }
+  ]
+}

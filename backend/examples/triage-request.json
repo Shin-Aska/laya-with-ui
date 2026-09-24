@@ -1,0 +1,33 @@
+{
+  "state": "I was charged twice for my September subscription. Please refund the duplicate charge today. If this is not fixed, I will cancel our account.",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which team should handle this customer request?",
+      "criteria": {
+        "billing": "Payments, invoices, charges or refunds",
+        "technical": "Bugs, broken features, outages or access failures",
+        "sales": "Pricing, plans or a new purchase",
+        "other": "None of these departments"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How urgently does this customer need help?",
+      "criteria": [
+        "Routine question; no deadline or loss of access",
+        "Time-sensitive inconvenience",
+        "Work is blocked, a service is down, or immediate action is needed"
+      ]
+    },
+    "refund_requested": {
+      "type": "noul",
+      "instructions": "Does the customer explicitly request money back or a refund?"
+    },
+    "cancellation_risk": {
+      "type": "noul",
+      "instructions": "Does the customer explicitly say they may cancel or stop using the service?"
+    }
+  },
+  "checkpoint": "typed-decisions"
+}
