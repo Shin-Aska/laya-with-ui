@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Laya: UI" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="dev" path-to-js-file="$PROJECT_DIR$/ui/scripts/run-framework.mjs" working-dir="$PROJECT_DIR$/ui">
+    <method v="2" />
+  </configuration>
+</component>

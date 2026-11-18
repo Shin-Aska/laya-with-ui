@@ -9,44 +9,43 @@ The browser talks to the Python API through local UI routes. There is **no servi
 
 ## Run on Windows
 
-Install Python 3.11 and Node.js 22 or newer. Open PowerShell in this folder.
+Install Python 3.14 and Node.js 22.13 or newer. Open PowerShell in this folder.
 
-First-time backend setup:
+One-time setup (Python 3.14, CPU mode, no GPU required; creates `backend/.venv`, provisions `ui/.openai/hosting.json`, installs UI packages, and builds the UI):
 
 ```powershell
-cd backend
 .\setup.ps1
-cd ..
 ```
 
-Start the backend in one terminal:
+If PowerShell blocks local scripts, run setup and launch with `-ExecutionPolicy Bypass`:
 
 ```powershell
-.\backend\run.ps1
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+powershell -ExecutionPolicy Bypass -File .\run.ps1
 ```
 
-Start the UI in another terminal:
+Start both the backend and UI together (defaults to ports `8765` and `5173`; pass `-UiPort 5174` or `-BackendPort 8766` if either port is in use):
 
 ```powershell
-cd ui
-corepack pnpm install
-corepack pnpm dev
+.\run.ps1
 ```
 
-For VS Code, open this repository folder and select **Laya: Backend + UI** in Run and Debug. Run the first-time backend setup and `corepack pnpm install` before pressing F5. Stop any copies already using ports 8765 or 5173 before starting the compound configuration.
+Or run them in separate terminals (`.\backend\run.ps1` and `cd ui; npm run dev`). On Windows, `npm run dev` (`ui/scripts/run-framework.mjs dev`) automatically builds and serves via local Wrangler because `vinext dev`'s `workerd` runner can fail on `/`; set `LAYA_USE_VINEXT_DEV=1` to opt into `vinext dev`.
 
-Open [http://localhost:5173](http://localhost:5173). The UI detects the backend automatically. The first model request downloads and loads the selected checkpoint; it can take a few minutes. Keep the backend terminal open to see progress.
+For VS Code, open this repository folder and select **Laya: Backend + UI** in Run and Debug. Run `.\setup.ps1` once before pressing F5. Stop any copies already using ports 8765 or 5173 before starting the compound configuration.
 
-If PowerShell blocks scripts, run `py -3.11 scripts/install.py` once, then `.venv\Scripts\python.exe app.py`, both from inside `backend`. The UI needs no environment file for the default local ports.
+For JetBrains IDEs, open this repository folder and select **Laya: Backend + UI** from the run configuration menu. The shared `.run/` entries also let you run or debug **Laya: Backend** and **Laya: UI** separately. Run `.\setup.ps1` once first; the backend configuration uses `backend/.venv/Scripts/python.exe` rather than the project's default interpreter. Stop any copies already using ports 8765 or 5173 before launching both. Use a JetBrains IDE with Python and Node.js run/debug support.
+
+Open [http://localhost:5173](http://localhost:5173) (or the `-UiPort` you passed). The UI detects the backend automatically. The first model request downloads and loads the selected checkpoint; it can take a few minutes. Keep the backend terminal open to see progress.
+
+If PowerShell blocks scripts for manual steps, run `py -3.14 scripts/install.py` once, then `.venv\Scripts\python.exe app.py`, both from inside `backend`. The UI needs no environment file for the default local ports.
 
 ## Use the NVIDIA GPU on Windows
 
-This workspace's VS Code **Laya: Backend** and **Laya: Backend + UI** launch configurations now start the API with `--device cuda`. The installed PyTorch wheel is `2.6.0+cu124`, and the local RTX 4060 passes `torch.cuda.is_available()`.
-
-After recreating `backend/.venv`, run the normal setup first, stop the backend, then replace its CPU PyTorch wheel with the [official CUDA 12.4 build](https://docs.pytorch.org/get-started/previous-versions/):
+This workspace's VS Code and JetBrains **Laya: Backend** and **Laya: Backend + UI** launch configurations default to `--device cpu`. If you have an NVIDIA GPU, pass `--device cuda` instead and replace the CPU PyTorch wheel with the [official CUDA build](https://pytorch.org/get-started/locally/) matching your Python version (for example `cu128` for Python 3.14, or `cu124` for Python 3.10–3.12):
 
 ```powershell
-.\backend\.venv\Scripts\python.exe -m pip install --force-reinstall --no-deps "torch==2.6.0" --index-url https://download.pytorch.org/whl/cu124
+.\backend\.venv\Scripts\python.exe -m pip install --force-reinstall --no-deps torch --index-url https://download.pytorch.org/whl/cu128
 .\backend\.venv\Scripts\python.exe -c "import torch; print(torch.__version__, torch.cuda.is_available())"
 .\backend\run.ps1 --device cuda
 ```
@@ -71,4 +70,4 @@ The backend listens only on `127.0.0.1:8765`. Its routes are `GET /api/health`, 
 curl.exe http://127.0.0.1:8765/api/health
 ```
 
-See [backend/README.md](backend/README.md) for the request format and model setup. The backend serves JSON only; the UI is at port 5173.
+See [backend/README.md](backend/README.md) for the request format and model setup. The backend serves JSON only; the UI defaults to port 5173 (or whichever `--port` you pass, such as 5174).

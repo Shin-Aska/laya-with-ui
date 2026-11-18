@@ -35,6 +35,9 @@
 *.pth
 *.onnx
 
+# QA scratch and evidence
+/.lockedin/
+
 # Local credentials and deployment state
 .env
 .env.*

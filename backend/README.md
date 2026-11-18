@@ -4,7 +4,7 @@ This folder contains the local JSON API and real Laya inference engine. The brow
 
 ## Setup and run
 
-Python 3.10–3.12 is supported. On Windows, use Python 3.11 and PowerShell:
+Python 3.10–3.14 is supported (tested on 3.10, 3.11, and 3.14; 3.13 uses the same `>= 3.13` markers as 3.14; Intel macOS is limited to Python 3.10–3.12). On Windows, Python 3.14 and PowerShell are required:
 
 ```powershell
 cd backend

@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Laya: Backend + UI" type="CompoundRunConfigurationType">
+    <toRun name="Laya: Backend" type="PythonConfigurationType" />
+    <toRun name="Laya: UI" type="NodeJSConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
